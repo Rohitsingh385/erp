@@ -3,6 +3,8 @@ const passport = require('passport');
 const { ensureAuthenticated, ensureRoot, ensureAdmin } = require('../middleware/authMiddleware');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
+const { logActivity } = require('../middleware/authMiddleware');
+
 const router = express.Router();
 
 
@@ -112,6 +114,8 @@ router.post('/create-teacher', ensureAdmin, async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
+
 
 
 module.exports = router;

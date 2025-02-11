@@ -42,4 +42,70 @@ router.get('/users/delete/:id', ensureAuthenticated, ensureRoot, async (req, res
     }
 });
 
+router.get('/users/edit/:id', ensureAuthenticated, ensureRoot, async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) return res.status(404).send('User not found');
+        res.render('root/editUser', { user });
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
+// Edit User - Update in DB
+router.post('/users/edit/:id', ensureAuthenticated, ensureRoot, async (req, res) => {
+    try {
+        const { username, role, password } = req.body;
+        let updateData = { username, role };
+
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            updateData.password = hashedPassword;
+        }
+
+        await User.findByIdAndUpdate(req.params.id, updateData);
+        res.redirect('/root/users');
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
+// Search Users
+router.get('/users/search', ensureAuthenticated, ensureRoot, async (req, res) => {
+    try {
+        const query = req.query.query;
+        const users = await User.find({
+            $or: [
+                { username: { $regex: query, $options: 'i' } },
+                { role: { $regex: query, $options: 'i' } }
+            ]
+        });
+        res.render('root/users', { users });
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
+
+router.get('/users/activity/:id', ensureAuthenticated, ensureRoot, async (req, res) => {
+    try {
+        const logs = await ActivityLog.find({ user: req.params.id }).sort({ timestamp: -1 });
+        res.render('root/activityLogs', { logs });
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
+router.post('/users/reset-password/:id', ensureAuthenticated, ensureRoot, async (req, res) => {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+        await User.findByIdAndUpdate(req.params.id, { password: hashedPassword });
+        res.redirect('/root/users');
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
+});
+
+
+
 module.exports = router;

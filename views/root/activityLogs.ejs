@@ -1,0 +1,13 @@
+<h1>User Activity Logs</h1>
+<table>
+    <tr>
+        <th>Action</th>
+        <th>Timestamp</th>
+    </tr>
+    <% logs.forEach(log => { %>
+    <tr>
+        <td><%= log.action %></td>
+        <td><%= log.timestamp %></td>
+    </tr>
+    <% }) %>
+</table>

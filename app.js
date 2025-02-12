@@ -21,6 +21,13 @@ sessionMiddleware(app);
 const rootRoutes = require('./routes/rootRoutes');
 app.use('/root', rootRoutes);
 app.use('/auth', authRoutes);
+const enquiryRoutes = require('./routes/enquiryRoutes');
+app.use('/enquiry', enquiryRoutes);
+const admissionRoutes = require('./routes/admissionRoutes');  
+app.use('/admission', admissionRoutes);  
+
+
+
 
 // Home Route
 app.get('/', (req, res) => {

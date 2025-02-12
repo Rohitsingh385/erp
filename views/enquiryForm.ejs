@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enquiry Form</title>
+</head>
+<body>
+    <h2>Student Enquiry Form</h2>
+    <% if (query.success) { %>
+        <p style="color: green;">Enquiry submitted successfully!</p>
+    <% } %>
+    <form action="/enquiry/submit" method="POST">
+        <label>Parent Name:</label>
+        <input type="text" name="parentName" required><br>
+
+        <label>Contact:</label>
+        <input type="text" name="contactNumber" required><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label>Student Name:</label>
+        <input type="text" name="studentName" required><br>
+
+        <label>Previous School:</label>
+        <input type="text" name="previousSchool" required><br>
+
+        <label>Message:</label>
+        <textarea name="message"></textarea><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

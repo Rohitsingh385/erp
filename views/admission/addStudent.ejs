@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+</head>
+<body>
+    <h2>New Admission Form</h2>
+
+    <form action="/admission/add" method="POST" enctype="multipart/form-data">
+        <label>Student Name:</label>
+        <input type="text" name="studentName" required><br>
+
+        <label>Father Name:</label>
+        <input type="text" name="fatherName" required><br>
+
+        <label>Contact:</label>
+        <input type="text" name="parentContact" required><br>
+
+        <label>Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label>Age:</label>
+        <input type="number" name="age" required><br>
+
+        <label>Class/Section:</label>
+        <input type="text" name="classSection" required><br>
+
+        <label>Bus Details:</label>
+        <input type="text" name="busDetails"><br>
+
+        <label>Upload Student Image:</label>
+        <input type="file" name="studentImage" accept="image/*"><br>
+
+        <label>Upload Documents:</label>
+        <input type="file" name="documents" multiple><br>
+
+        <button type="submit">Submit Admission</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admission Dashboard</title>
+</head>
+<body>
+    <h2>Student Admission Management</h2>
+
+    <form action="/admission/search" method="GET">
+        <input type="text" name="query" placeholder="Search students...">
+        <button type="submit">Search</button>
+    </form>
+
+    <a href="/admission/add">Add New Student</a>
+
+    <table border="1">
+        <tr>
+            <th>Admission No</th>
+            <th>Student Name</th>
+            <th>Father Name</th>
+            <th>Contact</th>
+            <th>Student Image</th>
+        </tr>
+        <% students.forEach(student => { %>
+            <tr>
+                <td><%= student.admissionNumber %></td>
+                <td><%= student.studentName %></td>
+                <td><%= student.fatherName %></td>
+                <td><%= student.parentContact %></td>
+                <td>
+                    <% if (student.studentImage) { %>
+                        <img src="/uploads/<%= student.studentImage %>" width="50">
+                    <% } else { %>
+                        No Image
+                    <% } %>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+</body>
+</html>

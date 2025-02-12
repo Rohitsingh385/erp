@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Enquiry Dashboard</title>
+</head>
+
+<body>
+    <h2>Enquiry Management</h2>
+
+    <form action="/enquiry/search" method="GET">
+        <input type="text" name="query" placeholder="Search enquiries...">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Download Excel & PDF Buttons -->
+    <a href="/enquiry/download/excel" class="btn btn-success">Download Excel</a>
+    <a href="/enquiry/download/pdf" class="btn btn-danger">Download PDF</a>
+
+    <table border="1">
+        <tr>
+            <th>Parent Name</th>
+            <th>Student Name</th>
+            <th>Contact</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <% enquiries.forEach(enquiry => { %>
+            <tr>
+                <td><%= enquiry.parentName %></td>
+                <td><%= enquiry.studentName %></td>
+                <td><%= enquiry.contactNumber %></td>  
+                <td>
+                    <form action="/enquiry/update-status/<%= enquiry._id %>" method="POST">
+                        <select name="status">
+                            <option value="Pending" <%= enquiry.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                            <option value="Interested" <%= enquiry.status === 'Interested' ? 'selected' : '' %>>Interested</option>
+                            <option value="Not Interested" <%= enquiry.status === 'Not Interested' ? 'selected' : '' %>>Not Interested</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+                <td>
+                    <a href="/enquiry/view/<%= enquiry._id %>">View</a> |
+                    <a href="/enquiry/delete/<%= enquiry._id %>" onclick="return confirm('Are you sure?')">Delete</a>
+                    <form action="/enquiry/send-email/<%= enquiry._id %>" method="POST">
+                        <input type="text" name="emailMessage" placeholder="Type message...">
+                        <button type="submit">Send Email</button>
+                    </form>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+</body>
+
+</html>

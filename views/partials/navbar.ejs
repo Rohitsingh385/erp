@@ -1,0 +1,121 @@
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-nav .nav-item {
+            margin-right: 15px;
+        }
+        .nav-link {
+            font-size: 14px;
+            padding: 10px 15px;
+        }
+        .navbar-brand {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .session-timer {
+            color: #fff;
+            font-size: 14px;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">School ERP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/enquiry/dashboard">Enquiry Management</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admission/dashboard">Admission Management</a></li>
+
+                <!-- Student & Academic Management -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Student & Academics</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Student Attendance</a></li>
+                        <li><a class="dropdown-item" href="#">Student Web Portal</a></li>
+                        <li><a class="dropdown-item" href="#">Examination Management</a></li>
+                    </ul>
+                </li>
+
+                <!-- Fee Management -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Fee Management</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Online Fee Payment</a></li>
+                        <li><a class="dropdown-item" href="#">Fee Collection Management</a></li>
+                    </ul>
+                </li>
+
+                <!-- Employee & Payroll -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">HR & Payroll</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Employee Management</a></li>
+                        <li><a class="dropdown-item" href="#">HR & Payroll Management</a></li>
+                    </ul>
+                </li>
+
+                <!-- Transport & Security -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Transport & Security</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Transport Management</a></li>
+                        <li><a class="dropdown-item" href="#">Gate Pass Generation</a></li>
+                        <li><a class="dropdown-item" href="#">Visitor Management</a></li>
+                    </ul>
+                </li>
+
+                <!-- Library & Documents -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Library & Docs</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Library Management</a></li>
+                        <li><a class="dropdown-item" href="#">ID Card Generation</a></li>
+                        <li><a class="dropdown-item" href="#">Document Digital Locker</a></li>
+                        <li><a class="dropdown-item" href="#">TC / Certificate Management</a></li>
+                    </ul>
+                </li>
+
+                <!-- Admin Controls -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Admin Controls</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/root/users">Manage Users</a></li>
+                        <li><a class="dropdown-item" href="/root/teachers">Manage Teachers</a></li>
+                        <li><a class="dropdown-item" href="/root/modules">Module Access</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Session Timer & Logout (Right-Aligned) -->
+            <div class="d-flex ms-auto">
+                <span class="session-timer" id="sessionTimer">Session expires in: 30:00</span>
+                <a class="btn btn-danger btn-sm" href="/auth/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    let sessionTime = 30 * 60; // 30 minutes in seconds
+
+    function updateSessionTimer() {
+        let minutes = Math.floor(sessionTime / 60);
+        let seconds = sessionTime % 60;
+        document.getElementById("sessionTimer").innerText = `Session expires in: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+        
+        if (sessionTime === 0) {
+            window.location.href = "/auth/logout"; // Redirect to logout when session expires
+        } else {
+            sessionTime--;
+            setTimeout(updateSessionTimer, 1000);
+        }
+    }
+
+    updateSessionTimer();
+</script>

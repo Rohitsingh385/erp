@@ -1,0 +1,34 @@
+<%- include('../partials/navbar') %>
+<div class="container mt-4">
+    <h2>Class Management</h2>
+    <a href="/classes/add" class="btn btn-primary">Add Class</a>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Class Name</th>
+                <th>Section</th>
+                <th>Capacity</th>
+                <th>Assigned Teachers</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% classes.forEach(classData => { %>
+                <tr>
+                    <td><%= classData.className %></td>
+                    <td><%= classData.section %></td>
+                    <td><%= classData.capacity %></td>
+                    <td>
+                        <% classData.assignedTeachers.forEach(teacher => { %>
+                            <span><%= teacher.name %> (<%= teacher.email %>)</span><br>
+                        <% }) %>
+                    </td>
+                    <td>
+                        <a href="/classes/edit/<%= classData._id %>" class="btn btn-warning">Edit</a>
+                        <a href="/classes/delete/<%= classData._id %>" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>

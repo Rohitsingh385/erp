@@ -1,0 +1,19 @@
+<%- include('../partials/navbar') %>
+<div class="container mt-4">
+    <h2>Edit Class</h2>
+    <form action="/classes/edit/<%= classData._id %>" method="POST">
+        <div class="mb-3">
+            <label for="className" class="form-label">Class Name</label>
+            <input type="text" name="className" class="form-control" value="<%= classData.className %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="section" class="form-label">Section</label>
+            <input type="text" name="section" class="form-control" value="<%= classData.section %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="capacity" class="form-label">Capacity</label>
+            <input type="number" name="capacity" class="form-control" value="<%= classData.capacity %>" required>
+        </div>
+        <button type="submit" class="btn btn-success">Update Class</button>
+    </form>
+</div>

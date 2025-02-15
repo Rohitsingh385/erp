@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Class Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-4">Class Management</h2>
+        
+        <!-- Add New Class Button -->
+        <a href="/class/add" class="btn btn-primary mb-3">➕ Add New Class</a>
+        
+        <!-- Classes Table -->
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Class Name</th>
+                    <th>Section</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% classes.forEach((cls, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= cls.className %></td>
+                        <td><%= cls.section %></td>
+                        <td>
+                            <a href="/class/edit/<%= cls._id %>" class="btn btn-warning btn-sm">✏️ Edit</a>
+                            <a href="/class/delete/<%= cls._id %>" class="btn btn-danger btn-sm">❌ Delete</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

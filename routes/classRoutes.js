@@ -1,53 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User');
-const Student = require('../models/Student');
-const Attendance = require('../models/Attendance');
-const Fee = require('../models/Fee');
-const Bus = require('../models/Bus');
-const Class = require('../models/Class');
-const { ensureAuthenticated, ensureAdmin } = require('../middleware/auth');
+const { ensureAuthenticated, ensureRoot } = require('../middleware/authMiddleware');
+const classController = require('../controllers/classController'); 
 
-router.get('/classes', ensureAuthenticated, async (req, res) => {
-    try {
-        const classes = await Class.find();
-        res.json(classes);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
+// Route to display Class Dashboard
+router.get('/dashboard', ensureAuthenticated, classController.getClassDashboard);
 
-// Add class record
-router.post('/classes', ensureAuthenticated, async (req, res) => {
-    try {
-        const newClass = new Class(req.body);
-        await newClass.save();
-        res.json({ message: 'Class record added successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
+// Route to show the Add Class form
+router.get('/add', ensureAuthenticated, classController.getAddClassForm);
 
-// Update class record
-router.put('/classes/:id', ensureAuthenticated, async (req, res) => {
-    try {
-        const updatedClass = await Class.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updatedClass) return res.status(404).json({ message: 'Class record not found' });
-        res.json({ message: 'Class record updated successfully', updatedClass });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
+router.get('/edit/:id', classController.getEditClass);
 
-// Delete class record
-router.delete('/classes/:id', ensureAuthenticated, async (req, res) => {
-    try {
-        const deletedClass = await Class.findByIdAndDelete(req.params.id);
-        if (!deletedClass) return res.status(404).json({ message: 'Class record not found' });
-        res.json({ message: 'Class record deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error' });
-    }
-});
+
+// Route to handle form submission for adding a new class (POST)
+router.post('/add', ensureAuthenticated, ensureRoot, classController.addClass);
+
+// Get all classes
+router.get('/classes', ensureAuthenticated, classController.getAllClasses);
+
+// Update a class (Admin Only)
+router.put('/classes/:id', ensureAuthenticated, ensureRoot, classController.updateClass);
+
+router.get('/edit/:id', classController.getEditClassForm); 
+
+
+// Delete a class (Admin Only)
+router.delete('/classes/:id', ensureAuthenticated, ensureRoot, classController.deleteClass);
 
 module.exports = router;

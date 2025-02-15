@@ -1,0 +1,19 @@
+<%- include('../partials/navbar') %>
+<div class="container mt-4">
+    <h2>Add New Class</h2>
+    <form action="/class/add" method="POST">
+        <div class="mb-3">
+            <label for="className" class="form-label">Class Name</label>
+            <input type="text" name="className" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="section" class="form-label">Section</label>
+            <input type="text" name="section" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="capacity" class="form-label">Capacity</label>
+            <input type="number" name="capacity" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Class</button>
+    </form>
+</div>

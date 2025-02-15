@@ -24,7 +24,9 @@ app.use('/auth', authRoutes);
 const enquiryRoutes = require('./routes/enquiryRoutes');
 app.use('/enquiry', enquiryRoutes);
 const admissionRoutes = require('./routes/admissionRoutes');  
-app.use('/admission', admissionRoutes);  
+app.use('/admission', admissionRoutes); 
+const classRoutes = require('./routes/classRoutes');
+app.use('/class', classRoutes);
 
 
 
